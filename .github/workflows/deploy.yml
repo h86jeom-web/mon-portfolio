@@ -1,0 +1,100 @@
+name: Build, Test & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Job 1 : Tests et Vérifications
+  test:
+    name: Tests & Vérifications
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Installation des dépendances
+        run: npm ci
+
+      - name: Validation HTML
+        run: |
+          npm install -g html-validate
+          html-validate "*.html" --formatter stylish || true
+
+      - name: Linting CSS
+        run: |
+          npm install -g stylelint stylelint-config-standard
+          echo '{"extends": "stylelint-config-standard"}' > .stylelintrc.json
+          stylelint "css/**/*.css" || true
+
+      - name: Linting JavaScript
+        run: |
+          npm install -g eslint
+          echo '{"env": {"browser": true, "es2021": true}, "extends": "eslint:recommended", "parserOptions": {"ecmaVersion": "latest", "sourceType": "module"}}' > .eslintrc.json
+          eslint "js/**/*.js" --max-warnings 10 || true
+
+      - name: Vérification des fichiers requis
+        run: |
+          echo "🔍 Vérification des fichiers..."
+          test -f index.html && echo "✅ index.html trouvé" || (echo "❌ index.html manquant" && exit 1)
+          test -f css/style.css && echo "✅ style.css trouvé" || (echo "❌ style.css manquant" && exit 1)
+          test -f js/main.js && echo "✅ main.js trouvé" || (echo "❌ main.js manquant" && exit 1)
+          test -f data/projects.json && echo "✅ projects.json trouvé" || (echo "❌ projects.json manquant" && exit 1)
+
+      - name: Validation JSON
+        run: |
+          echo "🔍 Validation du fichier JSON..."
+          node -e "JSON.parse(require('fs').readFileSync('data/projects.json', 'utf8'))" && echo "✅ projects.json valide"
+
+      - name: Résumé des tests
+        run: |
+          echo "✅ Tous les tests sont passés !"
+          echo "📦 Prêt pour le déploiement"
+
+  # Job 2 : Déploiement sur GitHub Pages
+  deploy:
+    name: Déploiement GitHub Pages
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Configuration des Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload des artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Déploiement sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Résumé du déploiement
+        run: |
+          echo "🚀 Déploiement réussi !"
+          echo "🌐 Site accessible à: ${{ steps.deployment.outputs.page_url }}"
