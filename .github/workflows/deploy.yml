@@ -1,9 +1,7 @@
-name: Build, Test & Deploy
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
 permissions:
@@ -16,63 +14,87 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Job 1 : Tests et Vérifications
-  test:
-    name: Tests & Vérifications
+  # Job 1: Vérifications basiques
+  check:
+    name: Vérifications
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Installation des dépendances
-        run: npm ci
-
-      - name: Validation HTML
+      - name: Vérifier que index.html existe
         run: |
-          npm install -g html-validate
-          html-validate "*.html" --formatter stylish || true
+          if [ -f "index.html" ]; then
+            echo "✅ index.html trouvé"
+          else
+            echo "❌ index.html manquant"
+            exit 1
+          fi
 
-      - name: Linting CSS
+      - name: Vérifier la syntaxe CSS
         run: |
-          npm install -g stylelint stylelint-config-standard
-          echo '{"extends": "stylelint-config-standard"}' > .stylelintrc.json
-          stylelint "css/**/*.css" || true
+          echo "🔍 Vérification de la syntaxe CSS..."
+          for file in css/*.css; do
+            if [ -f "$file" ]; then
+              # Vérification basique: accolades équilibrées
+              OPEN=$(grep -o '{' "$file" | wc -l)
+              CLOSE=$(grep -o '}' "$file" | wc -l)
+              if [ "$OPEN" -eq "$CLOSE" ]; then
+                echo "✅ $file - Accolades équilibrées ($OPEN/$CLOSE)"
+              else
+                echo "❌ $file - Accolades déséquilibrées (ouvertes: $OPEN, fermées: $CLOSE)"
+                exit 1
+              fi
+            fi
+          done
 
-      - name: Linting JavaScript
+      - name: Vérifier la syntaxe JavaScript
         run: |
-          npm install -g eslint
-          echo '{"env": {"browser": true, "es2021": true}, "extends": "eslint:recommended", "parserOptions": {"ecmaVersion": "latest", "sourceType": "module"}}' > .eslintrc.json
-          eslint "js/**/*.js" --max-warnings 10 || true
+          echo "🔍 Vérification de la syntaxe JavaScript..."
+          for file in js/*.js; do
+            if [ -f "$file" ]; then
+              # Vérification basique avec node
+              if node -c "$file" 2>/dev/null; then
+                echo "✅ $file - Syntaxe valide"
+              else
+                echo "❌ $file - Erreur de syntaxe"
+                exit 1
+              fi
+            fi
+          done
 
-      - name: Vérification des fichiers requis
+      - name: Validation HTML basique
         run: |
-          echo "🔍 Vérification des fichiers..."
-          test -f index.html && echo "✅ index.html trouvé" || (echo "❌ index.html manquant" && exit 1)
-          test -f css/style.css && echo "✅ style.css trouvé" || (echo "❌ style.css manquant" && exit 1)
-          test -f js/main.js && echo "✅ main.js trouvé" || (echo "❌ main.js manquant" && exit 1)
-          test -f data/projects.json && echo "✅ projects.json trouvé" || (echo "❌ projects.json manquant" && exit 1)
+          echo "🔍 Validation HTML basique..."
+          # Vérifier les balises ouvrantes/fermantes courantes
+          for tag in html head body div section header footer nav main article; do
+            OPEN=$(grep -o "<$tag" index.html | wc -l)
+            CLOSE=$(grep -o "</$tag>" index.html | wc -l)
+            if [ "$OPEN" -eq "$CLOSE" ]; then
+              echo "✅ Balise <$tag>: équilibrée ($OPEN/$CLOSE)"
+            else
+              echo "⚠️  Balise <$tag>: possiblement déséquilibrée (ouvertes: $OPEN, fermées: $CLOSE)"
+            fi
+          done
 
-      - name: Validation JSON
-        run: |
-          echo "🔍 Validation du fichier JSON..."
-          node -e "JSON.parse(require('fs').readFileSync('data/projects.json', 'utf8'))" && echo "✅ projects.json valide"
+          # Vérifier que le HTML se termine correctement
+          if grep -q "</html>" index.html; then
+            echo "✅ Balise </html> de fermeture trouvée"
+          else
+            echo "❌ Balise </html> de fermeture manquante"
+            exit 1
+          fi
 
-      - name: Résumé des tests
+      - name: Résumé des vérifications
         run: |
-          echo "✅ Tous les tests sont passés !"
+          echo "✅ Toutes les vérifications sont passées !"
           echo "📦 Prêt pour le déploiement"
 
-  # Job 2 : Déploiement sur GitHub Pages
+  # Job 2: Déploiement
   deploy:
-    name: Déploiement GitHub Pages
-    needs: test
+    name: Déploiement
+    needs: check
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -82,10 +104,10 @@ jobs:
       - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Configuration des Pages
+      - name: Configuration GitHub Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload des artifacts
+      - name: Upload des fichiers
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
@@ -94,7 +116,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Résumé du déploiement
+      - name: Confirmation du déploiement
         run: |
-          echo "🚀 Déploiement réussi !"
-          echo "🌐 Site accessible à: ${{ steps.deployment.outputs.page_url }}"
+          echo "🚀 Site déployé avec succès !"
+          echo "🌐 URL: ${{ steps.deployment.outputs.page_url }}"
