@@ -1,0 +1,8 @@
+# Robots.txt for MonPortfolio
+# https://h86jeom-web.github.io/
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://h86jeom-web.github.io/sitemap.xml

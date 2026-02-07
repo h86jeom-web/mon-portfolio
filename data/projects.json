@@ -1,0 +1,31 @@
+{
+  "projects": [
+    {
+      "id": "mon-portfolio",
+      "name": "MonPortfolio",
+      "description": "Portfolio développeur moderne construit entièrement avec Claude Code. Design accessible (WCAG 2.1 AA), optimisé pour le SEO et les performances.",
+      "tags": ["HTML", "CSS", "JavaScript", "Claude Code"],
+      "url": "https://github.com/h86jeom-web",
+      "stars": 0,
+      "isExternal": true
+    },
+    {
+      "id": "portfolio-samoura",
+      "name": "portfolio-samoura-",
+      "description": "Projet de portfolio en développement.",
+      "tags": ["GitHub"],
+      "url": "https://github.com/h86jeom-web/portfolio-samoura-",
+      "stars": 0,
+      "isExternal": true
+    },
+    {
+      "id": "intimebot",
+      "name": "intimebot",
+      "description": "Bot développé en JavaScript avec des scripts Shell pour l'automatisation.",
+      "tags": ["JavaScript", "Shell"],
+      "url": "https://github.com/h86jeom-web/intimebot",
+      "stars": 0,
+      "isExternal": true
+    }
+  ]
+}

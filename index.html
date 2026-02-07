@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Jérôme Hengan - Développeur Web | Portfolio & Projets IA</title>
+    <meta name="title" content="Jérôme Hengan - Développeur Web | Portfolio & Projets IA">
+    <meta name="description" content="Portfolio de Jérôme Hengan, développeur en formation passionné par l'IA et la création de projets concrets. Découvrez mes projets construits avec Claude Code, Python, JavaScript et Node.js.">
+    <meta name="author" content="Jérôme Hengan">
+    <meta name="keywords" content="développeur web, portfolio, intelligence artificielle, Claude Code, JavaScript, Python, Node.js, projets web">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://h86jeom-web.github.io/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://h86jeom-web.github.io/">
+    <meta property="og:title" content="Jérôme Hengan - Développeur Web | Portfolio & Projets IA">
+    <meta property="og:description" content="Portfolio de Jérôme Hengan, développeur en formation passionné par l'IA et la création de projets concrets avec Claude Code.">
+    <meta property="og:image" content="https://h86jeom-web.github.io/assets/images/og-image.jpg">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://h86jeom-web.github.io/">
+    <meta name="twitter:title" content="Jérôme Hengan - Développeur Web | Portfolio & Projets IA">
+    <meta name="twitter:description" content="Portfolio de Jérôme Hengan, développeur en formation passionné par l'IA et la création de projets concrets.">
+    <meta name="twitter:image" content="https://h86jeom-web.github.io/assets/images/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+
+    <!-- Critical CSS inline -->
+    <style>
+        /* Critical CSS for above-the-fold content */
+        :root {
+            --color-bg-primary: #0a0a0a;
+            --color-bg-secondary: #1a1a1a;
+            --color-text-primary: #e0e0e0;
+            --color-text-secondary: #b0b0b0;
+            --color-accent-primary: #64ffda;
+            --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --header-height: 60px;
+            --spacing-sm: 1rem;
+            --transition-theme: 0.3s ease;
+        }
+
+        [data-theme="light"] {
+            --color-bg-primary: #ffffff;
+            --color-bg-secondary: #f5f5f5;
+            --color-text-primary: #1a1a1a;
+            --color-text-secondary: #4a4a4a;
+            --color-accent-primary: #0d9373;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            color: var(--color-text-primary);
+            background-color: var(--color-bg-primary);
+            transition: background-color var(--transition-theme), color var(--transition-theme);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-accent-primary);
+            color: var(--color-bg-primary);
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 10000;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jérôme Hengan",
+      "url": "https://h86jeom-web.github.io/",
+      "jobTitle": "Développeur Web",
+      "description": "Développeur en formation passionné par l'intelligence artificielle et la création de projets concrets",
+      "sameAs": [
+        "https://github.com/h86jeom-web"
+      ],
+      "knowsAbout": ["JavaScript", "Python", "Node.js", "HTML", "CSS", "Intelligence Artificielle", "Claude Code"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Portfolio Jérôme Hengan",
+      "url": "https://h86jeom-web.github.io/",
+      "description": "Portfolio professionnel de Jérôme Hengan, développeur web",
+      "author": {
+        "@type": "Person",
+        "name": "Jérôme Hengan"
+      }
+    }
+    </script>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Header / Navigation -->
+    <header class="header">
+        <nav class="nav" aria-label="Navigation principale">
+            <div class="nav__logo">
+                <a href="#hero" aria-label="Retour à l'accueil">JH</a>
+            </div>
+            <ul class="nav__menu" id="navMenu" aria-label="Menu de navigation">
+                <li class="nav__item">
+                    <a href="#about" class="nav__link">À propos</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#projects" class="nav__link">Projets</a>
+                </li>
+                <li class="nav__item">
+                    <a href="blog/index.html" class="nav__link">Blog</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#contact" class="nav__link">Contact</a>
+                </li>
+            </ul>
+            <div class="nav__actions">
+                <button
+                    class="theme-toggle"
+                    id="themeToggle"
+                    aria-label="Basculer entre thème clair et sombre"
+                    aria-pressed="false"
+                >
+                    <svg class="theme-toggle__icon theme-toggle__icon--sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="theme-toggle__icon theme-toggle__icon--moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button
+                    class="nav__toggle"
+                    id="navToggle"
+                    aria-label="Ouvrir le menu de navigation"
+                    aria-expanded="false"
+                    aria-controls="navMenu"
+                >
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                    <span class="nav__toggle-line"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" id="main-content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero fade-in-section">
+            <div class="hero__content">
+                <h1 class="hero__title">Jérôme Hengan</h1>
+                <p class="hero__subtitle">Développeur en formation</p>
+                <p class="hero__description">
+                    Je construis des projets concrets avec l'IA.
+                </p>
+                <div class="hero__cta">
+                    <a href="#projects" class="btn btn--primary">Voir mes projets</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about fade-in-section">
+            <div class="container">
+                <h2 class="section__title">À propos</h2>
+                <div class="about__content">
+                    <div class="about__photo">
+                        <div class="about__photo-placeholder">
+                            Photo
+                        </div>
+                    </div>
+                    <div class="about__text">
+                        <p>
+                            Passionné par la technologie et l'intelligence artificielle,
+                            j'apprends à construire des projets concrets en utilisant les
+                            outils les plus avancés du marché. Ce portfolio est lui-même
+                            construit avec Claude Code.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects fade-in-section">
+            <div class="container">
+                <h2 class="section__title">Mes Projets</h2>
+                <!-- Projects grid will be populated dynamically from data/projects.json -->
+                <div class="projects__grid" id="projectsGrid" role="list" aria-label="Liste des projets">
+                    <!-- Loading state -->
+                    <div class="projects__loading" aria-live="polite" aria-busy="true">
+                        Chargement des projets...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact fade-in-section" aria-labelledby="contact-title">
+            <div class="container">
+                <h2 class="section__title" id="contact-title">Me contacter</h2>
+                <div class="contact__content">
+                    <form
+                        class="contact__form"
+                        id="contactForm"
+                        aria-label="Formulaire de contact"
+                        novalidate
+                    >
+                        <div class="form__group">
+                            <label for="name" class="form__label">
+                                Nom <span aria-label="requis">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                class="form__input"
+                                autocomplete="name"
+                                required
+                                aria-required="true"
+                                aria-describedby="name-error"
+                            >
+                            <span id="name-error" class="form__error" role="alert"></span>
+                        </div>
+
+                        <div class="form__group">
+                            <label for="email" class="form__label">
+                                Email <span aria-label="requis">*</span>
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form__input"
+                                autocomplete="email"
+                                required
+                                aria-required="true"
+                                aria-describedby="email-error"
+                            >
+                            <span id="email-error" class="form__error" role="alert"></span>
+                        </div>
+
+                        <div class="form__group">
+                            <label for="message" class="form__label">
+                                Message <span aria-label="requis">*</span>
+                            </label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                class="form__textarea"
+                                rows="6"
+                                required
+                                aria-required="true"
+                                aria-describedby="message-error"
+                            ></textarea>
+                            <span id="message-error" class="form__error" role="alert"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn--primary btn--full">
+                            Envoyer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <p class="footer__text">
+                    &copy; 2026 Jérôme Hengan
+                </p>
+                <div class="footer__links">
+                    <a href="https://github.com/h86jeom-web" class="footer__link" target="_blank" rel="noopener noreferrer">
+                        GitHub
+                    </a>
+                    <!-- LinkedIn link removed - add when profile URL is available -->
+                    <!-- <span class="footer__separator">•</span>
+                    <a href="https://www.linkedin.com/in/votre-profil/" class="footer__link" target="_blank" rel="noopener noreferrer">
+                        LinkedIn
+                    </a> -->
+                </div>
+                <p class="footer__credit">
+                    Construit avec Claude Code
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js" defer></script>
+</body>
+</html>
